@@ -1,6 +1,12 @@
-#!/usr/bin/env bash
-# automation to make changes on configfile
-file { 'etc/ssh/ssh_config':
-  ensure  => present,
-  path    => "/etc/ssh/ssh_config",
-  content => 'IdentityFile ~/.ssh/school\n\tPasswordAuthentication no'}
+# No PasswordAuthentication using puppet
+# SSH configuration file
+file { '/etc/ssh/ssh_config':
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+  content => "
+    Host *
+      IdentityFile ~/.ssh/school
+      PasswordAuthentication no
+  ",
+}
