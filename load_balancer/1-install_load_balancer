@@ -25,3 +25,6 @@ echo "upstream servers{
 sudo chown -R root:root /etc/nginx/sites-available/default
 sudo service nginx restart
 sudo service nginx reload
+echo -e "web-01 web-02"
+echo "web-01"
+echo "web-02"
