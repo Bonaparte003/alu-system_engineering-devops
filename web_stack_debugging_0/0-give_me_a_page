@@ -7,11 +7,11 @@ sudo apt-get install -y apache2
 # Starting the Apache software
 sudo service apache2 start
 # Changin ownership of the /var/www directory
-sudo chown -R "$USER":"$USER" /var/www/html
+sudo chown -R "$USER:$USER" /var/www/html
 # Chaning the ownership of the configuration files
-sudo chown -R "$USER":"$USER" /etc/apache2/
+sudo chown -R "$USER:$USER" /etc/apache2/
 # Chaning the ownership of the ports.conf file
-sudo chown -R "$USER":"$USER" /etc/apache2/ports.conf
+sudo chown -R "$USER:$USER" /etc/apache2/ports.conf
 # Updating the index.html file
 echo "Hello Holberton" > /var/www/html/index.html
 # Editing the http config file
