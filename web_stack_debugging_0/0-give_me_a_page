@@ -6,8 +6,14 @@ sudo apt-get install curl -y
 sudo apt-get install -y apache2
 # Starting the Apache software
 sudo service apache2 start
+# Changin ownership of the /var/www directory
+sudo chown -R "$USER":"$USER" /var/www/html
+# Chaning the ownership of the configuration files
+sudo chown -R "$USER":"$USER" /etc/apache2/
+# Chaning the ownership of the ports.conf file
+sudo chown -R "$USER":"$USER" /etc/apache2/ports.conf
 # Updating the index.html file
-sudo echo "Hello Holberton" > /var/www/html/index.html
+echo "Hello Holberton" > /var/www/html/index.html
 # Editing the http config file
 echo "
 <VirtualHost *:80 *:8080>
@@ -31,19 +37,12 @@ echo "
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-	# For most configuration files from conf-available/, which are
-	# enabled or disabled at a global level, it is possible to
-	# include a line for only one particular virtual host. For example the
-	# following line enables the CGI configuration for this host only
-	# after it has been globally disabled with "a2disconf".
-	#Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 " > /etc/apache2/sites-available/000-default.conf
 # reconfiguring the ports.conf file to listen to port 8080
-sudo echo "
+echo "
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
 # /etc/apache2/sites-enabled/000-default.conf
@@ -62,4 +61,15 @@ Listen 8080
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 " > /etc/apache2/ports.conf
 # restarting the Apache software
+# set name server to localhost
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Changing the ownership back to root
+sudo chown -R root:root /etc/apache2/apache2.conf
+# Changing the ownership back to root
+sudo chown -R root:root /etc/apache2/sites-available/000-default.conf
+# Changing the ownership back to root
+sudo chown -R root:root /etc/apache2/ports.conf
+# Changing the ownership back to root
+sudo chown -R root:root /var/www/html/index.html
+# restart the apache2 service
 sudo service apache2 restart
